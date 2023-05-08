@@ -51,7 +51,7 @@ def _plot_differentials(
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    safe_title = urllib.parse.quote(title)
+    safe_title = urllib.parse.quote_plus(title)
     fig_fn = Path(f'{safe_title}-ancombc-barplot.html')
     fig_fp = output_dir / fig_fn
 
@@ -210,8 +210,8 @@ def da_barplot(output_dir: str,
             figure_data.append((True, figure_fn, column_label, None))
         except ValueError as e:
             figure_data.append((False, None, column_label, str(e)))
+
     context = {
         'figures': figure_data
     }
-    print(context)
     q2templates.render(str(index), output_dir, context=context)
